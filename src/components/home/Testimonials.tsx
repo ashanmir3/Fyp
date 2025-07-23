@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
+import { Carousel } from '../ui/Carousel';
 
 interface Testimonial {
   id: number;
@@ -92,23 +93,22 @@ export const Testimonials: React.FC = () => {
 
         <div className="relative max-w-4xl mx-auto">
           {/* Main Testimonial */}
-          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-200/50 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="p-12"
-              >
+          <Carousel
+            autoPlay={true}
+            interval={5000}
+            showDots={true}
+            showArrows={true}
+            className="bg-white rounded-3xl shadow-2xl border border-gray-200/50 h-80"
+          >
+            {testimonials.map((testimonial) => (
+              <div key={testimonial.id} className="p-12 h-full">
                 <div className="flex flex-col lg:flex-row items-center gap-8">
                   {/* Avatar and Info */}
                   <div className="flex-shrink-0 text-center lg:text-left">
                     <div className="relative">
                       <img
-                        src={testimonials[currentIndex].avatar}
-                        alt={testimonials[currentIndex].name}
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
                         className="w-24 h-24 rounded-full object-cover mx-auto lg:mx-0 shadow-lg"
                       />
                       <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-600 to-green-600 rounded-full p-2">
@@ -116,58 +116,29 @@ export const Testimonials: React.FC = () => {
                       </div>
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 mt-4">
-                      {testimonials[currentIndex].name}
+                      {testimonial.name}
                     </h3>
-                    <p className="text-gray-600">{testimonials[currentIndex].role}</p>
+                    <p className="text-gray-600">{testimonial.role}</p>
                     <div className="flex justify-center lg:justify-start mt-2">
-                      {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                      {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
                     <div className="mt-3 inline-block bg-gradient-to-r from-blue-100 to-green-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                      {testimonials[currentIndex].condition}
+                      {testimonial.condition}
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
                     <blockquote className="text-lg lg:text-xl text-gray-700 leading-relaxed italic">
-                      "{testimonials[currentIndex].content}"
+                      "{testimonial.content}"
                     </blockquote>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={goToPrevious}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-all duration-200 hover:scale-110"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
-            </button>
-            <button
-              onClick={goToNext}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-all duration-200 hover:scale-110"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
-            </button>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                  index === currentIndex
-                    ? 'bg-gradient-to-r from-blue-600 to-green-600 scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-              />
+              </div>
             ))}
-          </div>
+          </Carousel>
 
           {/* Additional Stats */}
           <motion.div

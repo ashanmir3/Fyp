@@ -17,6 +17,7 @@ import { AppointmentTracking } from './pages/AppointmentTracking';
 import { About } from './pages/About';
 import { Team } from './pages/Team';
 import { Contact } from './pages/Contact';
+import { ForgotPassword } from './pages/ForgotPassword';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
@@ -49,6 +50,10 @@ const AppContent: React.FC = () => {
             <Route 
               path="/signup" 
               element={user ? <Navigate to="/dashboard" /> : <Signup />} 
+            />
+            <Route 
+              path="/forgot-password" 
+              element={user ? <Navigate to="/dashboard" /> : <ForgotPassword />} 
             />
             <Route 
               path="/dashboard" 

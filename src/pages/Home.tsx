@@ -4,6 +4,7 @@ import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { Testimonials } from '../components/home/Testimonials';
 import { FAQ } from '../components/home/FAQ';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
+import { FloatingAIChat } from '../components/FloatingAIChat';
 
 export const Home: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ export const Home: React.FC = () => {
       <Testimonials />
       <FAQ />
       <FloatingWhatsApp />
+      <FloatingAIChat />
     </div>
   );
 };

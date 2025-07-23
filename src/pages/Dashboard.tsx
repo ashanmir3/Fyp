@@ -5,6 +5,9 @@ import { Card } from '../components/ui/Card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { Calendar, Users, Activity, TrendingUp, Camera, MessageCircle, ShoppingCart, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ProgressTracking } from '../components/ProgressTracking';
+import { TreatmentPlans } from '../components/TreatmentPlans';
+import { ProductRecommendations } from '../components/ProductRecommendations';
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -322,6 +325,36 @@ export const Dashboard: React.FC = () => {
             </div>
           </Card>
         </motion.div>
+
+        {/* Enhanced Dashboard Sections */}
+        <div className="space-y-8">
+          {/* Progress Tracking Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            <ProgressTracking />
+          </motion.div>
+
+          {/* Treatment Plans Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+          >
+            <TreatmentPlans />
+          </motion.div>
+
+          {/* Product Recommendations Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0 }}
+          >
+            <ProductRecommendations condition="acne" severity="mild" />
+          </motion.div>
+        </div>
       </div>
     </div>
   );
