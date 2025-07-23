@@ -38,12 +38,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // Determine role based on email domain or specific emails
+      const role = email.includes('doctor') || email.includes('dr.') || email === 'doctor@dermaassist.com' 
+        ? 'doctor' 
+        : 'patient';
+      
       const mockUser: User = {
         id: '1',
-        name: 'John Doe',
+        name: role === 'doctor' ? 'Dr. Sarah Johnson' : 'John Doe',
         email,
-        role: 'patient',
-        avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150',
+        role,
+        avatar: role === 'doctor' 
+          ? 'https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=150'
+          : 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150',
         createdAt: new Date()
       };
       

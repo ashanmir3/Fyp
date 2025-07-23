@@ -3,15 +3,22 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { Card } from '../components/ui/Card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { Calendar, Users, Activity, TrendingUp, Camera, MessageCircle, ShoppingCart, Clock } from 'lucide-react';
+import { Calendar, Users, Activity, TrendingUp, Camera, MessageCircle, ShoppingCart, Clock, UserCheck, FileText, Bell, Settings, DollarSign, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ProgressTracking } from '../components/ProgressTracking';
 import { TreatmentPlans } from '../components/TreatmentPlans';
 import { ProductRecommendations } from '../components/ProductRecommendations';
+import { DoctorDashboard } from '../components/DoctorDashboard';
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuth();
 
+  // If user is a doctor, show doctor dashboard
+  if (user?.role === 'doctor') {
+    return <DoctorDashboard />;
+  }
+
+  // Patient dashboard content below
   // Mock data for charts
   const weeklyProgress = [
     { day: 'Mon', severity: 3 },

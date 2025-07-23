@@ -13,11 +13,18 @@ export const Header: React.FC = () => {
   // Navigation items based on authentication status
   const authenticatedNavigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Diagnosis', href: '/diagnosis', icon: User },
-    { name: 'Doctors', href: '/doctors', icon: Calendar },
-    { name: 'Store', href: '/store', icon: ShoppingCart },
-    { name: 'Community', href: '/chat', icon: MessageCircle },
-    { name: 'History', href: '/history', icon: History },
+    ...(user?.role === 'doctor' ? [
+      { name: 'Patients', href: '/patients', icon: Users },
+      { name: 'Appointments', href: '/appointments', icon: Calendar },
+      { name: 'Messages', href: '/chat', icon: MessageCircle },
+      { name: 'Records', href: '/history', icon: History },
+    ] : [
+      { name: 'Diagnosis', href: '/diagnosis', icon: User },
+      { name: 'Doctors', href: '/doctors', icon: Calendar },
+      { name: 'Store', href: '/store', icon: ShoppingCart },
+      { name: 'Community', href: '/chat', icon: MessageCircle },
+      { name: 'History', href: '/history', icon: History },
+    ])
   ];
 
   const publicNavigation = [
