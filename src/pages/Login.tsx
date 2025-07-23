@@ -199,6 +199,20 @@ export const Login: React.FC = () => {
             </p>
           </div>
         </Card>
+        
+        {/* Demo Credentials */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="bg-blue-50 rounded-xl p-4 text-sm"
+        >
+          <h4 className="font-semibold text-blue-900 mb-2">Demo Credentials:</h4>
+          <div className="space-y-1 text-blue-800">
+            <p><strong>Patient:</strong> patient@demo.com / password123</p>
+            <p><strong>Doctor:</strong> doctor@dermaassist.com / password123</p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
