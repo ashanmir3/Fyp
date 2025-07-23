@@ -5,9 +5,11 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../hooks/useAuth';
 import { ChatMessage } from '../types';
+import { CommunityChat } from '../components/CommunityChat';
 
 export const Chat: React.FC = () => {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<'direct' | 'community'>('direct');
   const [selectedChat, setSelectedChat] = useState<string | null>('1');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -123,7 +125,34 @@ export const Chat: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-200px)]">
+        {/* Tab Navigation */}
+        <div className="mb-8">
+          <div className="flex space-x-1 bg-gray-100 p-1 rounded-xl w-fit">
+            <button
+              onClick={() => setActiveTab('direct')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                activeTab === 'direct'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Direct Messages
+            </button>
+            <button
+              onClick={() => setActiveTab('community')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                activeTab === 'community'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Community Chat
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'direct' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-200px)]">
           {/* Chat List */}
           <div className="lg:col-span-1">
             <Card className="h-full p-0 overflow-hidden">
@@ -285,6 +314,9 @@ export const Chat: React.FC = () => {
             </Card>
           </div>
         </div>
+        ) : (
+          <CommunityChat />
+        )}
       </div>
     </div>
   );
